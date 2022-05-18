@@ -36,6 +36,11 @@ public class VendingMachine {
         }
     }
 
+    public void removeCoin(Coin coin) {
+        int coinIndex = coinList.indexOf(coin);
+        coinList.remove(coinIndex);
+    }
+
     public boolean isCoinValid(Coin coin) {
         return coin.getType().isAcceptCoin();
     }
@@ -59,6 +64,8 @@ public class VendingMachine {
                     Product firstProduct = drawer.getProducts().get(0); // assign first product in product list to new variables
                     returnedProduct = drawer.returnProduct(firstProduct); // remove product from drawer and save it so we can return it to customer
                     clearCoinList();
+                } else {
+                    returnAllCoins();
                 } // end second if
             } // end first if
         } // end for
@@ -68,6 +75,13 @@ public class VendingMachine {
 
     public void clearCoinList(){
         coinList.clear();
+    }
+
+    public void returnAllCoins(){
+        for (Coin coin: coinList){
+            removeCoin(coin); // remove coin from coinList
+            returnedCoins.addCoin(coin); // add coin to returnedCoins list
+        }
     }
 
 }

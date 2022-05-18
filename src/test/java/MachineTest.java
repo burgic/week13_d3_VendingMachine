@@ -22,7 +22,7 @@ public class MachineTest {
     private VendingMachine vendingMachine;
     private CoinReturn returnedCoins;
     private Crisps crisp1, crisp2, crisp3, crisp4;
-    private Coin coin1, coin2, coin3, coin4, coin5;
+    private Coin coin1, coin2, coin3, coin4, coin5, coin6;
 
     @Before
     public void before() {
@@ -40,6 +40,7 @@ public class MachineTest {
         coin3 = new Coin(CoinType.ONEPOUND);
         coin4 = new Coin(CoinType.FIFTYPENCE);
         coin5 = new Coin(CoinType.TWENTYPENCE);
+        coin6 = new Coin(CoinType.TENPENCE);
 
     }
 
@@ -103,5 +104,19 @@ public class MachineTest {
         Product boughtCrisps = vendingMachine.buyProduct(topDrawer.getDrawType());
         assertEquals(crisp1, boughtCrisps);
     }
+
+    @Test
+    public void canReturnCoins(){
+        topDrawer.addProduct(crisp1);
+        topDrawer.addProduct(crisp2);
+        topDrawer.addProduct(crisp3);
+        vendingMachine.addCoin(coin5);
+        vendingMachine.addCoin(coin6);
+        vendingMachine.buyProduct(topDrawer.getDrawType());
+        assertEquals(Arrays.asList(coin5, coin6), vendingMachine.getReturnedCoins());
+
+    }
+
+
 
 }
